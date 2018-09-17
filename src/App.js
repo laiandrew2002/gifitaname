@@ -8,9 +8,20 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      gifmaker :[]
+      gifmaker :[],
+      trending :[]
     }
     this.total = 0;
+  }
+
+  componentDidMount(){
+    const baseurl = 'https://api.giphy.com/v1/gifs/trending?';
+    const api = 'dRVPNPTe8GzxIDZeBLbbmJkuMpiuFBk9'
+    const url = baseurl + "api_key=" + api + "&limit=12"
+
+    fetch(url)
+    .then(response => response.json())
+    .then(data => this.setState( {trending : data.data}))
   }
 
   gifinput =(e) =>{
@@ -19,11 +30,9 @@ class App extends Component {
     // console.log(e.target.value)
 
     const inputstring = e.target.value.split(' ').join('+');
-
       this.total++;
       var keypressed  =this.total;
       setTimeout(()=>{
-        
           console.log(keypressed, this.total)
           if(this.total === keypressed){
             // console.log("you are done cb")
@@ -38,15 +47,23 @@ class App extends Component {
       },500)
   }
 
-  render() {
-    // console.log(this.state.gifmaker)
-    // const list = this.state.gifmaker.map((e,i) => {
-    //   console.log(e);
-    //   return (
-    //   <iframe src={`https://giphy.com/embed/${e.id}`} width="{e.images.original.width}" height="{e.images.original.height}" 
-    //   frameBorder="0" class="giphy-embed" allowFullScreen title="search-gif"></iframe>);
-    // });
+  toggleList(){
 
+    if(this.state.gifmaker.length===0){
+      return(
+        <GifList gifmaker={this.state.trending} />
+      );
+
+    }else {
+      return(
+        <GifList gifmaker={this.state.gifmaker} />
+      );
+    }
+  }
+
+  render() {
+    
+    console.log(this.state.trending)
     return (
       <div>
       <Navbar />
@@ -60,11 +77,8 @@ class App extends Component {
               <InputSeach search={this.gifinput}/>
             </div>
             <div className='text-center'>
-
-            <GifList gifmaker={this.state.gifmaker} />
+              {this.toggleList()}
             </div>
-              
-          
         </div>
       </div>
     );

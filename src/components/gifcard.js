@@ -1,11 +1,10 @@
 import React from 'react';
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const GifCard = ({id, width, height}) =>{
 
-    const copiedurl = `https://media.giphy.com/media/${id}/giphy.gif`;
+    const copiedurl = `https://i.giphy.com/media/${id}/giphy.gif`;
     //let copied = false;
-
         return (
             <div className='bg-dark dib br3 pa3 ma2 grow bw2 shadow-5'>
                 <iframe src={`https://giphy.com/embed/${id}`} 
@@ -22,11 +21,8 @@ const GifCard = ({id, width, height}) =>{
                     href="#0">Copy Link</a>
                     </CopyToClipboard>
                 </div>
-                
-                
             </div>
         )
-    
 }
 
 export default GifCard;

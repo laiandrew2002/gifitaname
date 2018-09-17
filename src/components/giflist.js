@@ -8,6 +8,7 @@ const GifList = ({gifmaker}) =>{
                 //console.log(e);
                     return (
                         <GifCard 
+                            key={e.id}
                             id={e.id}
                             width={e.images.original.width}
                             height={e.images.original.height}
@@ -19,5 +20,3 @@ const GifList = ({gifmaker}) =>{
 }
 
 export default GifList;
-
-
