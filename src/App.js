@@ -3,6 +3,7 @@ import './App.css';
 import Navbar from './components/Navbar.js';
 import GifList from './components/giflist';
 import InputSeach from './components/inputsearch';
+import Loading from './components/loading'
 
 class App extends Component {
   constructor(){
@@ -33,7 +34,7 @@ class App extends Component {
       this.total++;
       var keypressed  =this.total;
       setTimeout(()=>{
-          console.log(keypressed, this.total)
+         //console.log(keypressed, this.total)
           if(this.total === keypressed){
             // console.log("you are done cb")
             const url = baseurl + "search?q="+ inputstring +"&api_key=" + api + "&limit=12"
@@ -48,12 +49,16 @@ class App extends Component {
   }
 
   toggleList(){
-
-    if(this.state.gifmaker.length===0){
+    if(this.state.trending.length === 0){
+      return(
+        <Loading />
+      )
+    }
+    else if (this.state.gifmaker.length===0 && this.state.trending.length>0){
+      
       return(
         <GifList gifmaker={this.state.trending} />
       );
-
     }else {
       return(
         <GifList gifmaker={this.state.gifmaker} />
